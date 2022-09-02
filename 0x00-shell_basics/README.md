@@ -1,1 +1,1 @@
-Display current directory contents in a long format
+a script that displays files in a long format
