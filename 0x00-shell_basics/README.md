@@ -1,1 +1,1 @@
-displays files in long format
+dislpays in long format
