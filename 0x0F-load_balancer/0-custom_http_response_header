@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
-# Install Nginx
-sudo apt-get update
-sudo apt-get install -y nginx
-
-# Add custom header to Nginx config
-echo 'server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $hostname;
-}' | sudo tee /etc/nginx/sites-available/default
-
-# Enable the new Nginx config
-sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
-# Restart Nginx
+# configures nginx on both servers so that its HTTP response contains a custom header
+# this line ensures that my bash script passes Shellcheck (version 0.3.7) without any error
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo "POWERED BY ALX SOFTWARE" | sudo tee /var/www/html/index.nginx-debian.html
+sudo service nginx start
+sudo sed -i '11 a add_header X-Served-By $hostname always;' /etc/nginx/nginx.conf
 sudo service nginx restart
+sudo service nginx reload
 
