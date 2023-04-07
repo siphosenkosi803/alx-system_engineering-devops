@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
-# script used to display information about subdomains
-# Ignore shellcheck case SC2086 (line still added just in case)
-obtain_dns()
-{
-    data=$(dig $i.$1 | awk '/ANSWER SECTION:/ {getline; print $4}')
-    terminus=$(dig $i.$1 | awk '/ANSWER SECTION:/ {getline; print $5}')
+# displays info about subdomains
+# shell check ignored
+get_subdomain_info () {
+    info=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | tr '\n' ' ')
+    echo "$2 $info" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
 }
 
-if [ -z $2 ]; then
-    for i in "www" "lb-01" "web-01" "web-02"; do
-	obtain_dns $1
-	echo "The subdomain $i is a $data record and points to $terminus"
-    done
-else
-    i=$2
-    obtain_dns $1
-    echo "The subdomain $i is a $data record and points to $terminus"
+if [ "$#" == 1 ]
+then
+  get_subdomain_info "$1" "www"
+  get_subdomain_info "$1" "lb-01"
+  get_subdomain_info "$1" "web-01"
+  get_subdomain_info "$1" "web-02"
+elif [ "$#" == 2 ]
+then
+  get_subdomain_info "$1" "$2"
 fi
