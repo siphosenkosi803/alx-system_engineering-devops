@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
-#subdomains' information
-#this line ensures that script passes Shellcheck (version 0.3.7) without any error
-print_i() {
-    RECORD_TYPE=$(dig +short "$2.$1" | awk '{print $4}')
-    DESTINATION=$(dig +short "$2.$1" | awk '{print $5}')
-    echo "The subdomain $2 is a $RECORD_TYPE record and points to $DESTINATION"
+# script used to display information about subdomains
+# Ignore shellcheck case SC2086 (line still added just in case)
+obtain_dns()
+{
+    data=$(dig $i.$1 | awk '/ANSWER SECTION:/ {getline; print $4}')
+    terminus=$(dig $i.$1 | awk '/ANSWER SECTION:/ {getline; print $5}')
 }
 
-SUBDOMAINS=${2:-"www lb-01 web-01 web-02"}
-
-for SUB in $SUBDOMAINS; do
-    print_i "$1" "$SUB"
-done
-
+if [ -z $2 ]; then
+    for i in "www" "lb-01" "web-01" "web-02"; do
+	obtain_dns $1
+	echo "The subdomain $i is a $data record and points to $terminus"
+    done
+else
+    i=$2
+    obtain_dns $1
+    echo "The subdomain $i is a $data record and points to $terminus"
+fi
