@@ -14,10 +14,9 @@ frontend http_web
     default_backend rgw
 backend rgw
     balance roundrobin
-    server  rgw1 34.139.171.141:80 check
-    server  rgw2 104.196.195.22:80 check
+    server  110194-web-01 52.87.221.0:80 check
+    server  110194-web-02 18.209.152.146:80 check
 EOT
 
 # Step 4-  Restart HAproxy inorder to apply the new configuration
 sudo service haproxy restart
-
