@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#subdomains' information
+#this line ensures that script passes Shellcheck (version 0.3.7) without any error
+print_i() {
+    RECORD_TYPE=$(dig +short "$2.$1" | awk '{print $4}')
+    DESTINATION=$(dig +short "$2.$1" | awk '{print $5}')
+    echo "The subdomain $2 is a $RECORD_TYPE record and points to $DESTINATION"
+}
+
+SUBDOMAINS=${2:-"www lb-01 web-01 web-02"}
+
+for SUB in $SUBDOMAINS; do
+    print_i "$1" "$SUB"
+done
+
