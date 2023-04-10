@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configures server to make sure Nginx is running and listening on port 80
-CONFIG_FILE="/etc/nginx/sites-available/default"
-[ -f "$CONFIG_FILE" ] && sed -i 's/listen 8080 default_server/listen 80 default_server/g' "$CONFIG_FILE" && service nginx reload
-
+# Fix missing open port 80 in a container
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+service nginx restart
+pkill -o nginx
