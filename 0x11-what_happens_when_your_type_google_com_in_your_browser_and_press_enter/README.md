@@ -1,3 +1,3 @@
 ------------------------
-DEVOPS EXPLAINATORY BLOG
+DEVOPS EXPLANATORY BLOG
 -----------------------
