@@ -1,1 +1,6 @@
 #!/usr/bin/env bash
+# same fix just shorter
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+sed -i 's/80 default_server/8080 default_server/' /etc/nginx/sites-available/default
+chown nginx:nginx /etc/nginx/nginx.conf
+sudo -u nginx service nginx start
