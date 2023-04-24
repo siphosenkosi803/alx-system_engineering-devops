@@ -21,7 +21,7 @@ if __name__ == "__main__":
     _u_todos_ = requests.get(_u_t_url_).json()
     for _u_t_ in _u_todos_:
         _n_todos_ += 1
-        if (user_todo.get("completed") is True):
+        if (_u_t_.get("completed") is True):
             _n_c_todos_ += 1
             _c_tasks_.append(_u_t_.get("title"))
     print("Employee {} is done with tasks({}/{}):".format(
