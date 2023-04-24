@@ -1,38 +1,37 @@
 #!/usr/bin/python3
 """
-Python script that uses a REST API to retrieve information about an employee's
-TODO list progress based on their employee ID.
+a Python script that uses a REST API, 
+for a given employee ID,
+to return information about his/her TODO list progress.
 """
-
 import requests
 import sys
 
 
 if __name__ == "__main__":
-    # Check if an employee ID was provided as a command-line argument
-    if len(sys.argv) < 2:
-        print("Usage: {} EMPLOYEE_ID".format(sys.argv[0]))
-        sys.exit(1)
 
-    # Set the base URL for the API
-    _url = "https://jsonplaceholder.typicode.com"
+    _n_c_todos_ = 0
+    _n_todos_ = 0
+    _c_tasks_ = []
+    _url_us_ = 'https://jsonplaceholder.typicode.com/users/'
+    _url_u_ = _url_us_ + sys.argv[1]
+    _u_info_ = requests.get(_url_u_).json()
 
-    # Get the employee ID from the command-line arguments
-    employee_id = sys.argv[1]
+    _u_name_ = _u_info_.get("name")
 
-    # Make an API request to get information about the employee
-    re_ = requests.get("{}/users/{}".format(_url, employee_id))
-    employee = re_.json()
+    _u_t_url_ = _url_us_ + sys.argv[1] + '/todos/'
+    _u_todos_ = requests.get(_u_t_url_).json()
 
-    # Make an API request to get the employee's tasks
-    re_ = requests.get("{}/todos".format(_url), params={"userId": employee_id})
-    tasks = response.json()
+    for _u_t_ in _u_todos_:
+        _n_todos_ += 1
+        if (user_todo.get("completed") is True):
+            _n_c_todos_ += 1
+            _c_tasks_.append(_u_t_.get("title"))
 
-    # Filter the tasks to get only the completed tasks
-    completed_tasks = [task for task in tasks if task["completed"]]
-
-    # Print out information about the employee and their completed tasks
     print("Employee {} is done with tasks({}/{}):".format(
-        employee["name"], len(completed_tasks), len(tasks)))
-    for task in completed_tasks:
-        print("\t {}".format(task["title"]))
+        _u_name_,
+        _n_c_todos_,
+        _n_todos_
+        ))
+    for task in _c_tasks_:
+        print("\t {}".format(task))
