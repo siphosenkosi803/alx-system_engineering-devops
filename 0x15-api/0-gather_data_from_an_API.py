@@ -12,7 +12,7 @@ from sys import argv
 if __name__ == "__main__":
     _n_c_todos_ = 0
     _n_todos_ = 0
-    _c_tasks_= []
+    _c_tasks_ = []
     _url_us_ = 'https://jsonplaceholder.typicode.com/users/'
     _url_u_ = _url_us_ + sys.argv[1]
     _u_info_ = requests.get(_url_u_).json()
