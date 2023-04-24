@@ -16,7 +16,7 @@ if __name__ == "__main__":
         _u_n_ = _r_.get("_u_n_")
         _u_t_url_ = (
             "https://jsonplaceholder.typicode.com/users/{}/todos".format(
-            _u_i_)
+                _u_i_)
         )
         _u_todos_ = requests.get(_u_t_url_).json()
         _f_n_ = "{}.json".format(_u_i_)
