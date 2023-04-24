@@ -15,17 +15,17 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Set the base URL for the API
-    api_url = "https://jsonplaceholder.typicode.com"
+    _url = "https://jsonplaceholder.typicode.com"
 
     # Get the employee ID from the command-line arguments
     employee_id = sys.argv[1]
 
     # Make an API request to get information about the employee
-    response = requests.get("{}/users/{}".format(api_url, employee_id))
-    employee = response.json()
+    re_ = requests.get("{}/users/{}".format(_url, employee_id))
+    employee = re_.json()
 
     # Make an API request to get the employee's tasks
-    response = requests.get("{}/todos".format(api_url), params={"userId": employee_id})
+    re_ = requests.get("{}/todos".format(_url), params={"userId": employee_id})
     tasks = response.json()
 
     # Filter the tasks to get only the completed tasks
