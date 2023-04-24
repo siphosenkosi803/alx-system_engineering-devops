@@ -1,18 +1,18 @@
 #!/usr/bin/python3
-"""DataAPI module"""
+"""Script that, usingAPI, for a given employee ID,
+   returns information about his."""
 import requests
 import sys
-
+from sys import argv
 
 if __name__ == '__main__':
-    api_url = 'https://jsonplaceholder.typicode.com'
-    employee_id = sys.argv[1]
-    r1 = requests.get('{}/users/{}'.format(api_url, employee_id))
-    employee_name = r1.json().get('name')
-    r2 = requests.get('{}/todos?userId={}'.format(api_url, employee_id))
-    responses = r2.json()
-    done_tasks = [t for t in responses if t.get('completed')]
-    print('Employee {} is done with tasks({}/{}):'.
-          format(employee_name, len(done_tasks), len(responses)))
-    for t in done_tasks:
-        print('\t {}'.format(t.get('title')))
+    app = 'https://jsonplaceholder.typicode.com'
+    userR_ = requests.get(app + '/users/' + argv[1]).json()
+    todos_ = requests.get(app + '/todos?userId=' + argv[1]).json()
+
+    _tt = [_todo['title'] for _todo in todos_ if _todo['completed']]
+
+    print('Employee {} is done with tasks({}/{}):'
+          .format(userR_['name'], len(_tt), len(todos_)))
+
+    [print('\t {}'.format(title)) for title in _tt]
