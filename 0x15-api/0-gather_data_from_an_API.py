@@ -21,14 +21,13 @@ if __name__ == "__main__":
     _u_t_url_ = _url_us_ + sys.argv[1] + '/todos/'
     _u_todos_ = requests.get(_u_t_url_).json()
     for _u_t_ in _u_todos_:
-        _n_todos_ += 1
         if (_u_t_.get("completed") is True):
             _n_c_todos_ += 1
             _c_tasks_.append(_u_t_.get("title"))
     print("Employee {} is done with tasks({}/{}):".format(
         _u_name_,
         _n_c_todos_,
-        _n_todos_
+        len(_u_todos_)
         ))
     for task in _c_tasks_:
         print("\t {}".format(task))
