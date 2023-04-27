@@ -19,14 +19,14 @@ def get_employee_data(employee_id):
     return u_name, u_todos
 
 
-def parse_args():
+def parse_arguments():
     parser = argparse.ArgumentParser(description='Get employee TODO list progress')
     parser.add_argument('employee_id', type=int, help='Employee ID')
     return parser.parse_args()
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    args = parse_arguments()
     employee_id = args.employee_id
 
     employee_name, todos = get_employee_data(employee_id)
@@ -46,4 +46,3 @@ if __name__ == "__main__":
     ))
     for task in c_tasks:
         print("\t{}".format(task))
-
