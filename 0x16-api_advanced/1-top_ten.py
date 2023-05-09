@@ -5,6 +5,7 @@ Returns the titles of the first 10 hot posts
 
 import requests
 
+
 def top_ten(subreddit):
     """Returns the top 10 hot posts"""
     url_base = 'https://www.reddit.com'
@@ -15,7 +16,9 @@ def top_ten(subreddit):
         url='{}/{}'.format(url_base, query_url),
         headers=headers,
         params=params,
-        allow_redirects=False)
+        allow_redirects=False
+    )
+
     if api_resp.status_code == 200:
         json_api_data = api_resp.json().get("data")
         if json_api_data:
@@ -27,4 +30,12 @@ def top_ten(subreddit):
     else:
         print("None")
 
+
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        top_ten(sys.argv[1])
 
