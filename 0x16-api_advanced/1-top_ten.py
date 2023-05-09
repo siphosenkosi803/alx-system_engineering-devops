@@ -4,7 +4,6 @@ Returns the titles of the first 10 hot posts
 """
 
 import requests
-import sys
 
 
 def top_ten(subreddit):
